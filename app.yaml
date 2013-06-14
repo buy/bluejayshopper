@@ -1,0 +1,26 @@
+application: bluejayshopper
+version: 10
+runtime: python27
+api_version: 1
+threadsafe: true
+
+handlers:
+- url: /stylesheets
+  static_dir: stylesheets
+  
+- url: /scripts
+  static_dir: scripts
+
+- url: /favicon\.ico
+  static_files: images/favicon.ico
+  upload: images/favicon\.ico  
+  
+- url: /images
+  static_dir: images
+
+- url: /.*
+  script: bluejayshopper.application
+  
+libraries:
+- name: webapp2
+  version: latest
