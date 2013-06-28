@@ -8,12 +8,15 @@ sys.setdefaultencoding(type)
 
 from product import product
 from google.appengine.api import urlfetch
-urlfetch.set_default_fetch_deadline(60)
+urlfetch.set_default_fetch_deadline(20)
 
 def getPrice(search):
   searchURL = 'http://www.amazon.com/s/ref=nb_sb_noss_1?url=search-alias%3Daps&field-keywords=' + str(search)
   #print searchURL
-  amazon = urllib2.urlopen(searchURL)
+  try:
+    amazon = urllib2.urlopen(searchURL)
+  except:
+    raise
 
   amazon_content = amazon.read().replace('\n', '')
 

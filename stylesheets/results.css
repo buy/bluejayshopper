@@ -202,6 +202,19 @@ td.last img {
   text-align: center;
 }
 
+.divbox {
+  padding: 10px 10px 10px 10px;
+  font-size: 20px;
+  font-weight: bold;
+  margin: 100px auto;
+  border-radius: 12px;
+  text-align: center;
+  color: #FFFFFF;
+  background-color: #85AFDF;
+  text-shadow: 1px 1px 1px #444;
+  font-family: Verdana, Arial, Sans-Serif;
+}
+
 .slide {
 	height: 30px;
   padding-top: 10px;

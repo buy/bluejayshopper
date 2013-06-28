@@ -71,19 +71,20 @@ button {
 	background: #f78d1d;
 	background: -webkit-gradient(linear, left top, left bottom, from(#faa51a), to(#f47a20));
 	background: -moz-linear-gradient(top,  #faa51a,  #f47a20);
-	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr=’#faa51a’, endColorstr=’#f47a20′);
+	filter: progid:DXImageTransform.Microsoft.Gradient(startColorStr='#faa51a', endColorStr='#f47a20', gradientType='0'); 
 }
 .orange:hover {
 	background: #f47c20;
 	background: -webkit-gradient(linear, left top, left bottom, from(#f88e11), to(#f06015));
 	background: -moz-linear-gradient(top,  #f88e11,  #f06015);
-	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr=’#f88e11′, endColorstr=’#f06015′);
+	filter: progid:DXImageTransform.Microsoft.Gradient(startColorStr='#f88e11', endColorStr='#f06015', gradientType='0'); 
 }
+
 .orange:active {
 	color: #fcd3a5;
 	background: -webkit-gradient(linear, left top, left bottom, from(#f47a20), to(#faa51a));
 	background: -moz-linear-gradient(top,  #f47a20,  #faa51a);
-	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr=’#f47a20′, endColorstr=’#faa51a’);
+	filter: progid:DXImageTransform.Microsoft.Gradient(startColorStr='#f47a20', endColorStr='#faa51a', gradientType='0'); 
 }
 
 .search {
@@ -116,7 +117,7 @@ button {
   padding: 10px 10px 10px 10px;
   font-size: 20px;
   font-weight: bold;
-  margin: 100px auto;
+  margin: 80px auto;
   border-radius: 12px;
   text-align: center;
   color: #FFFFFF;
@@ -126,7 +127,7 @@ button {
 }
 
 .dealrank {
-  width: 30%;
+  width: 500px;
 }
 
 .textCenter {
@@ -134,8 +135,8 @@ button {
 }
 
 .backMain {
-  width: 10%;
-  margin: 30px auto;
+  width: 150px;
+  margin: 25px auto;
 }
 
 .dealrankIntro, .backMain {

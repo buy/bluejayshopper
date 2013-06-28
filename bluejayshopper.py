@@ -2,6 +2,7 @@ import cgi
 import webapp2
 #import md5
 import re
+import sys
 
 # self defined module
 import bestbuy
@@ -10,7 +11,7 @@ import newegg
 
 from google.appengine.api import urlfetch
 from google.appengine.ext import ndb
-urlfetch.set_default_fetch_deadline(45)
+urlfetch.set_default_fetch_deadline(35)
 
 
 MAIN_PAGE_HTML = """\
@@ -85,7 +86,6 @@ RESULT_PAGE_HTML_HEAD = """\
     </div>
     <div class="slide">Click here to search another product</div>
     <div id="content">
-
       <table class="result-table" cellspacing="0">
       <tr><th>Product Name</th><th>Product Photo</th><th>Current Price</th><th>History Lowest Price</th><th>Click to Buy</th></tr>
 """      
@@ -103,6 +103,15 @@ RESULT_PAGE_HTML_FOOT = """\
 </html>
 """
 
+ERROR_500 = """\
+  </table>
+  </div>
+  <div class="divbox"><br /><br />
+    Ooops, looks like something is wrong!<br /><br />
+    Don't blame me, try to reload the page or do another search :)<br /><br /><br />
+  </div>
+"""
+
 ### The index page
 class MainPage(webapp2.RequestHandler):
   # GET request handler
@@ -116,10 +125,16 @@ class PriceFinder(webapp2.RequestHandler):
     pList = []  # array to store all the fetched results
     search = self.request.get('product')
     search = '+'.join(search.split()) # Search keyword
-    pList += bestbuy.getPrice(search) # Get the results from BestBuy
-
-    pList += amazon.getPrice(search)  # Get the results from Amazon
-    pList += newegg.getPrice(search)  # Get the results from Newegg
+    try:
+      pList += bestbuy.getPrice(search) # Get the results from BestBuy
+      pList += amazon.getPrice(search)  # Get the results from Amazon
+      pList += newegg.getPrice(search)  # Get the results from Newegg
+    except:
+      self.response.write(RESULT_PAGE_HTML_HEAD)
+      self.response.write(ERROR_500)
+      self.response.write(RESULT_PAGE_HTML_FOOT)
+      return
+    
     pList.sort(key=lambda x: x.price) # Sort the list of products by their prices
     sortByCount(pList)  # Sort again and this time by click counts
     self.response.write(RESULT_PAGE_HTML_HEAD)
@@ -219,6 +234,6 @@ try:
       ('/', MainPage),
       ('/result', PriceFinder),
       ('/click', GetURL),
-  ], debug=True)
+  ], debug=False)
 except:
   print "Unexpected error:", sys.exc_info()[0]

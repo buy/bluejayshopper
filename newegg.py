@@ -8,11 +8,14 @@ sys.setdefaultencoding(type)
 
 from product import product
 from google.appengine.api import urlfetch
-urlfetch.set_default_fetch_deadline(60)
+urlfetch.set_default_fetch_deadline(20)
 
 def getPrice(search):
   searchURL = 'http://www.newegg.com/Product/ProductList.aspx?Submit=ENE&DEPA=0&Order=BESTMATCH&N=-1&isNodeId=1&Description='+ str(search) +'&x=-852&y=-112'
-  newegg = urllib2.urlopen(searchURL)
+  try:
+    newegg = urllib2.urlopen(searchURL)
+  except:
+    raise
   newegg_content = newegg.read().replace('\n','')
   newegg_content = newegg_content.replace('\t','')
   

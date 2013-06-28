@@ -8,7 +8,7 @@ sys.setdefaultencoding(type)
 
 from product import product
 from google.appengine.api import urlfetch
-urlfetch.set_default_fetch_deadline(60)
+urlfetch.set_default_fetch_deadline(20)
 
 def getPrice(search):  
   # testing output
@@ -19,8 +19,10 @@ def getPrice(search):
 
   # Bestbuy's search URL
   searchURL = 'http://www.bestbuy.com/site/searchpage.jsp?_dyncharset=ISO-8859-1&_dynSessConf=ATG12474449190&id=pcat17071&type=page&sc=Global&cp=1&nrp=15&sp=&qp=&list=n&iht=y&usc=All+Categories&ks=960&saas=saas&st=%s' % search
-  
-  bestbuy = urllib2.urlopen(searchURL)
+  try:
+    bestbuy = urllib2.urlopen(searchURL)
+  except:
+    raise
   # Get the content and eliminate the \n so we can use regex
   bestbuy_content = bestbuy.read().replace('\n', '')
   
